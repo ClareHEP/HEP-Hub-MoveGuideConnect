@@ -3,86 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hobart HEP Hub</title>
+<title>Hobart HEP Hub — Log in</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-  .hero{position:relative;overflow:hidden;padding:72px 40px 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;border-bottom:1px solid var(--line);}
-  .hero-copy .mono-label{color:var(--orange);margin-bottom:14px;display:block;}
-  .hero-copy h1{font-size:44px;line-height:1.08;font-weight:600;margin-bottom:20px;}
-  .hero-copy h1 span{color:var(--navy);}
-  .hero-copy p{font-size:16px;line-height:1.65;color:#3B4450;max-width:520px;}
-  .hero-topo{width:100%;height:340px;}
-  .sections{padding:56px 40px 8px;}
-  .sections-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;}
-  .sections-head h2{font-size:22px;font-weight:600;}
-  .sections-head span{color:var(--stone);font-size:13.5px;}
-  .card-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:60px;}
-  .card{background:var(--paper-raised);border:1.5px solid var(--line);border-radius:14px;padding:26px 24px;transition:transform .15s ease,box-shadow .15s ease;position:relative;text-decoration:none;display:block;}
-  .card:hover{transform:translateY(-3px);box-shadow:0 10px 24px -14px rgba(12,32,56,.35);border-color:var(--accent);}
-  .card[data-tab="move"]{--accent:var(--orange);}
-  .card[data-tab="guide"]{--accent:var(--navy);}
-  .card[data-tab="connect"]{--accent:var(--slate);}
-  .card h3{font-size:18px;font-weight:600;margin-bottom:6px;color:var(--ink);}
-  .card p{font-size:13.5px;color:var(--stone);line-height:1.5;}
-  .card .go{position:absolute;top:22px;right:22px;font-family:'IBM Plex Mono';font-size:10.5px;color:var(--accent);letter-spacing:.08em;}
+  body{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;}
+  .login-card{background:var(--paper-raised);border-radius:20px;box-shadow:0 8px 24px -8px rgba(5,28,44,.14);width:100%;max-width:420px;border:1px solid var(--line);overflow:hidden;}
+  .brand-mark{display:flex;align-items:center;gap:14px;padding:32px 36px;background:var(--ink);}
+  .brand-mark img{height:38px;width:auto;}
+  .brand-mark .brand-sub{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B5;}
+  .login-fields{padding:30px 36px 36px;}
+  .field-group{margin-bottom:18px;}
+  label{display:block;font-size:13.5px;font-weight:600;margin-bottom:7px;color:var(--ink);}
+  input[type=text],input[type=password]{width:100%;padding:13px 15px;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;transition:border-color .15s ease;}
+  input[type=text]:focus,input[type=password]:focus{outline:none;border-color:var(--navy);}
+  .pw-row{position:relative;}
+  .pw-toggle{position:absolute;right:12px;top:39px;background:none;border:none;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;padding:6px 4px;font-family:'Inter',sans-serif;}
+  .login-btn{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15.5px;font-weight:600;cursor:pointer;margin-top:6px;font-family:'Inter',sans-serif;transition:background .15s ease;}
+  .login-btn:hover{background:#005E99;}
+  .login-meta{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:13px;}
+  .login-meta a{color:var(--navy);font-weight:600;text-decoration:none;}
+  .remember{display:flex;align-items:center;gap:7px;color:var(--stone);}
+  .error-msg{background:#FBEAE5;color:#B3543F;border:1px solid #EFC9BC;border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:16px;display:none;}
+  .error-msg.show{display:block;}
+  .demo-hint{margin-top:24px;padding:14px 16px;background:var(--slate-soft);border-radius:10px;font-size:13px;color:var(--ink);line-height:1.5;}
+  .demo-hint strong{font-weight:700;}
 </style>
 </head>
 <body>
 
-<nav>
-  <a class="brand" href="index.html">
+<div class="login-card">
+  <div class="brand-mark">
     <img src="logo.png" alt="Hobart Exercise Physiology">
-    <div class="brand-sub">Member Hub</div>
-  </a>
-  <div class="nav-right"><span>Home</span><span>Support</span><div class="avatar">C</div></div>
-</nav>
-
-<section class="hero">
-  <div class="hero-copy">
-    <span class="mono-label">Member Hub</span>
-    <h1>Welcome to<br><span>Hobart HEP Hub.</span></h1>
-    <p>You're in the right place. Hobart Exercise Physiology is a locally owned Tasmanian practice, run by Accredited Exercise Physiologists dedicated to helping clients manage pain, build strength and improve everyday health — from injury recovery through to cancer care. This hub is where that support continues between sessions: follow-along workouts, resources from your practitioners, and what's happening across our community.</p>
+    <span class="brand-sub">Member Hub</span>
   </div>
-  <svg class="hero-topo" viewBox="0 0 400 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M200 20 C120 20 60 90 60 160 C60 230 120 300 200 300 C280 300 340 230 340 160 C340 90 280 20 200 20Z" stroke="#0076C0" stroke-width="1.4" opacity="0.16"/>
-    <path d="M200 50 C140 50 90 105 90 165 C90 225 140 275 200 275 C260 275 310 225 310 165 C310 105 260 50 200 50Z" stroke="#0076C0" stroke-width="1.4" opacity="0.3"/>
-    <path d="M200 80 C160 80 120 120 120 170 C120 220 160 250 200 250 C240 250 280 220 280 170 C280 120 240 80 200 80Z" stroke="#4A87AD" stroke-width="1.6" opacity="0.55"/>
-    <path d="M200 110 C175 110 150 135 150 170 C150 205 175 225 200 225 C225 225 250 205 250 170 C250 135 225 110 200 110Z" stroke="#FF9A53" stroke-width="1.8" opacity="0.8"/>
-    <path d="M200 140 C185 140 175 152 175 170 C175 188 185 198 200 198 C215 198 225 188 225 170 C225 152 215 140 200 140Z" fill="#FF9A53"/>
-    <circle cx="200" cy="170" r="3" fill="#051C2C"/>
-  </svg>
-</section>
 
-<section class="sections">
-  <div class="sections-head"><h2>Three ways in</h2><span>Pick a space to jump into</span></div>
-  <div class="card-row">
-    <a class="card" data-tab="move" href="move.html">
-      <span class="go">OPEN →</span>
-      <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" stroke="#FF9A53" stroke-width="1.4" opacity=".4"/><circle cx="15" cy="15" r="9" stroke="#FF9A53" stroke-width="1.4" opacity=".7"/><circle cx="15" cy="15" r="4.5" fill="#FF9A53"/></svg>
-      <h3 style="margin-top:16px;">Move</h3>
-      <p>Follow-along workouts and at-home sessions, ready whenever you are.</p>
-    </a>
-    <a class="card" data-tab="guide" href="guide.html">
-      <span class="go">OPEN →</span>
-      <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" stroke="#0076C0" stroke-width="1.4" opacity=".4"/><circle cx="15" cy="15" r="9" stroke="#0076C0" stroke-width="1.4" opacity=".7"/><circle cx="15" cy="15" r="4.5" fill="#0076C0"/></svg>
-      <h3 style="margin-top:16px;">Guide</h3>
-      <p>Downloadable PDFs and education from your practitioners.</p>
-    </a>
-    <a class="card" data-tab="connect" href="connect.html">
-      <span class="go">OPEN →</span>
-      <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" stroke="#4A87AD" stroke-width="1.4" opacity=".4"/><circle cx="15" cy="15" r="9" stroke="#4A87AD" stroke-width="1.4" opacity=".7"/><circle cx="15" cy="15" r="4.5" fill="#4A87AD"/></svg>
-      <h3 style="margin-top:16px;">Connect</h3>
-      <p>Live from our Instagram — the latest from the HEP community.</p>
-    </a>
+  <div class="login-fields">
+    <div class="error-msg" id="error-msg">That email or password doesn't match. Please try again.</div>
+
+    <div class="field-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" placeholder="john.smith@email.com" autocomplete="username">
+    </div>
+
+    <div class="field-group pw-row">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+      <button type="button" class="pw-toggle" id="pw-toggle" aria-label="Show password">Show</button>
+    </div>
+
+    <button class="login-btn" id="login-btn">Log in</button>
+
+    <div class="login-meta">
+      <label class="remember"><input type="checkbox" checked> Keep me logged in</label>
+      <a href="#">Forgot password?</a>
+    </div>
+
+    <div class="demo-hint">
+      <strong>Demo login</strong> — this is a mockup so the details below are pre-filled for you:<br>
+      Email: <strong>john.smith@email.com</strong><br>
+      Password: <strong>JohnSmith1!</strong>
+    </div>
   </div>
-</section>
+</div>
 
-<footer>
-  <span>Hobart Exercise Physiology — South Hobart &amp; Lindisfarne</span>
-  <span>hobart hep hub</span>
-</footer>
+<script>
+  const emailInput = document.getElementById('email');
+  const pwInput = document.getElementById('password');
+  const loginBtn = document.getElementById('login-btn');
+  const errorMsg = document.getElementById('error-msg');
+  const pwToggle = document.getElementById('pw-toggle');
+
+  const VALID_EMAIL = 'john.smith@email.com';
+  const VALID_PW = 'JohnSmith1!';
+
+  pwToggle.addEventListener('click', () => {
+    const showing = pwInput.type === 'text';
+    pwInput.type = showing ? 'password' : 'text';
+    pwToggle.textContent = showing ? 'Show' : 'Hide';
+  });
+
+  function attemptLogin(){
+    const emailVal = emailInput.value.trim().toLowerCase();
+    const pwVal = pwInput.value;
+    if((emailVal === VALID_EMAIL.toLowerCase() && pwVal === VALID_PW) || (emailVal === '' && pwVal === '')){
+      errorMsg.classList.remove('show');
+      window.location.href = 'welcome.html';
+    } else {
+      errorMsg.classList.add('show');
+    }
+  }
+
+  loginBtn.addEventListener('click', attemptLogin);
+  pwInput.addEventListener('keydown', e => { if(e.key === 'Enter') attemptLogin(); });
+</script>
 
 </body>
 </html>
