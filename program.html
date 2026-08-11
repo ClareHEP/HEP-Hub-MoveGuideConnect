@@ -113,7 +113,7 @@
 <script>
   // Paste your Google Apps Script Web App /exec URL here to sync entries to a
   // Google Sheet. Leave blank to keep entries local to this device only.
-  const SHEET_URL = "";
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycby_tfXeDFtItP3_aaQsKbXbvnAX5pcROGckm-0r37QrDXvPN3-b6B5djmm3qKKLvhiTEg/exec";
 
   const STORE_KEY_NAME = 'hephub_client_name';
   const STORE_KEY_EXERCISES = 'hephub_program_exercises';
@@ -256,15 +256,17 @@
 
   function syncEntry(entry){
     if(!SHEET_URL) return;
+    // no-cors: Apps Script's redirect (script.google.com -> googleusercontent.com)
+    // doesn't carry CORS headers we can read, but the request still lands and
+    // doPost() still runs server-side — we just can't confirm it from here.
     fetch(SHEET_URL, {
       method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(entry)
-    }).then(() => {
-      syncNote.textContent = 'Synced to your ongoing log.';
-      syncNote.classList.add('synced');
     }).catch(() => {
       syncNote.textContent = 'Saved on this device — sync will retry next time.';
+      syncNote.classList.remove('synced');
     });
   }
 
