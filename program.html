@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Program — HEP Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  :root{--accent:#4C9A6A;--accent-soft:#E4F2EA;}
+  .page-head{padding:44px 40px 8px;}
+  .back{font-family:'IBM Plex Mono';font-size:11px;color:var(--stone);text-decoration:none;letter-spacing:.06em;}
+  .page-head h1{font-size:32px;font-weight:600;margin:14px 0 8px;}
+  .page-head p{color:var(--stone);font-size:14.5px;max-width:560px;line-height:1.6;}
+
+  .whoami{display:flex;align-items:center;gap:10px;padding:0 40px;margin:20px 0 4px;font-size:13px;color:var(--stone);}
+  .whoami button{font-family:'Inter',sans-serif;font-size:12px;color:var(--accent);background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;}
+  .name-gate{margin:20px 40px;padding:18px 20px;background:var(--accent-soft);border-radius:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .name-gate span{font-size:13.5px;color:var(--ink);}
+  .name-gate input{padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px;font-family:'Inter',sans-serif;min-width:200px;}
+  .name-gate button{padding:9px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+
+  .panel{margin:24px 40px;padding:22px 24px;background:var(--paper-raised);border:1px solid var(--line);border-radius:14px;}
+  .panel h2{font-size:16px;font-weight:600;margin-bottom:4px;}
+  .panel .sub{font-size:13px;color:var(--stone);margin-bottom:16px;}
+  .add-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .add-row input{padding:11px 13px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px;font-family:'Inter',sans-serif;}
+  .add-row input[name="exName"]{flex:1;min-width:180px;}
+  .add-row input[name="exSets"],.add-row input[name="exReps"]{width:90px;}
+  .add-row button{padding:11px 18px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;}
+
+  .exercise-list{display:flex;flex-direction:column;gap:10px;}
+  .exercise-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  .exercise-top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--paper);}
+  .exercise-top h4{font-size:14.5px;font-weight:600;}
+  .exercise-top .target{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+  .exercise-top .remove{font-size:11px;color:var(--stone);background:none;border:none;cursor:pointer;padding:6px;}
+  .log-form{display:none;padding:14px 16px 18px;border-top:1px solid var(--line);gap:10px;flex-wrap:wrap;align-items:flex-end;}
+  .log-form.open{display:flex;}
+  .log-field{display:flex;flex-direction:column;gap:5px;}
+  .log-field label{font-size:11px;color:var(--stone);font-family:'IBM Plex Mono';text-transform:uppercase;letter-spacing:.04em;}
+  .log-field input{padding:9px 11px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px;width:84px;font-family:'Inter',sans-serif;}
+  .log-field.notes{flex:1;min-width:160px;}
+  .log-field.notes input{width:100%;}
+  .log-form button{padding:10px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .empty-note{color:var(--stone);font-size:13.5px;padding:6px 2px;}
+
+  .sync-note{font-size:12px;color:var(--stone);margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+  .sync-note.synced{color:var(--accent);}
+
+  .history-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .history-head h2{font-size:16px;font-weight:600;}
+  .export-btn{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--accent);border:1px solid var(--accent);padding:7px 14px;border-radius:20px;letter-spacing:.04em;background:none;cursor:pointer;}
+  table.history{width:100%;border-collapse:collapse;font-size:13px;}
+  table.history th{text-align:left;font-family:'IBM Plex Mono';font-size:10.5px;color:var(--stone);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;border-bottom:1px solid var(--line);}
+  table.history td{padding:10px;border-bottom:1px solid var(--line);}
+  table.history tr:last-child td{border-bottom:none;}
+
+  @media(max-width:820px){.page-head,.whoami,.name-gate,.panel{margin-left:20px;margin-right:20px;padding-left:16px;padding-right:16px;}.page-head{padding-left:20px;padding-right:20px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="welcome.html"><img src="logo.png" alt="Hobart Exercise Physiology"><div class="brand-sub">Member Hub</div></a>
+  <div class="nav-right"><span>Home</span><span>Support</span><div class="avatar">C</div></div>
+</nav>
+<div class="page-head">
+  <a class="back" href="welcome.html">← BACK TO HUB</a>
+  <h1>My Program</h1>
+  <p>Add the exercises your practitioner has set for you, then log your sets, reps and weight each time you train — in a class, at home, or in clinic.</p>
+</div>
+
+<div class="whoami" id="whoami" style="display:none;">
+  Logging as <strong id="whoamiName"></strong> · <button id="changeNameBtn">not you?</button>
+</div>
+<div class="name-gate" id="nameGate">
+  <span>What's your name, so we can keep your log separate from everyone else's?</span>
+  <input type="text" id="nameInput" placeholder="e.g. John Smith">
+  <button id="saveNameBtn">Save</button>
+</div>
+
+<div class="panel">
+  <h2>Your exercises</h2>
+  <div class="sub">Add each exercise from your program. Tap one to log today's sets, reps and weight.</div>
+  <div class="add-row">
+    <input type="text" name="exName" id="exName" placeholder="Exercise name, e.g. Goblet Squat">
+    <input type="text" name="exSets" id="exSets" placeholder="Target sets">
+    <input type="text" name="exReps" id="exReps" placeholder="Target reps">
+    <button id="addExerciseBtn">Add exercise</button>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="exercise-list" id="exerciseList">
+    <div class="empty-note" id="exerciseEmpty">No exercises added yet — add your first one above.</div>
+  </div>
+  <div class="sync-note" id="syncNote">Entries are saved on this device.</div>
+</div>
+
+<div class="panel">
+  <div class="history-head">
+    <h2>Your history</h2>
+    <button class="export-btn" id="exportBtn">Export CSV</button>
+  </div>
+  <div id="historyWrap">
+    <div class="empty-note" id="historyEmpty">No sessions logged yet.</div>
+  </div>
+</div>
+
+<footer><span>Hobart Exercise Physiology — South Hobart &amp; Lindisfarne</span><span>hep hub</span></footer>
+
+<script>
+  // Paste your Google Apps Script Web App /exec URL here to sync entries to a
+  // Google Sheet. Leave blank to keep entries local to this device only.
+  const SHEET_URL = "";
+
+  const STORE_KEY_NAME = 'hephub_client_name';
+  const STORE_KEY_EXERCISES = 'hephub_program_exercises';
+  const STORE_KEY_HISTORY = 'hephub_program_history';
+
+  const nameGate = document.getElementById('nameGate');
+  const nameInput = document.getElementById('nameInput');
+  const saveNameBtn = document.getElementById('saveNameBtn');
+  const whoami = document.getElementById('whoami');
+  const whoamiName = document.getElementById('whoamiName');
+  const changeNameBtn = document.getElementById('changeNameBtn');
+
+  const exerciseList = document.getElementById('exerciseList');
+  const exerciseEmpty = document.getElementById('exerciseEmpty');
+  const exNameInput = document.getElementById('exName');
+  const exSetsInput = document.getElementById('exSets');
+  const exRepsInput = document.getElementById('exReps');
+  const addExerciseBtn = document.getElementById('addExerciseBtn');
+  const syncNote = document.getElementById('syncNote');
+
+  const historyWrap = document.getElementById('historyWrap');
+  const historyEmpty = document.getElementById('historyEmpty');
+  const exportBtn = document.getElementById('exportBtn');
+
+  function getClientName(){ return localStorage.getItem(STORE_KEY_NAME) || ''; }
+  function getExercises(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY_EXERCISES)) || []; }catch(e){ return []; } }
+  function setExercises(list){ localStorage.setItem(STORE_KEY_EXERCISES, JSON.stringify(list)); }
+  function getHistory(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY_HISTORY)) || []; }catch(e){ return []; } }
+  function setHistory(list){ localStorage.setItem(STORE_KEY_HISTORY, JSON.stringify(list)); }
+
+  function refreshWhoami(){
+    const name = getClientName();
+    if(name){
+      nameGate.style.display = 'none';
+      whoami.style.display = 'flex';
+      whoamiName.textContent = name;
+    } else {
+      nameGate.style.display = 'flex';
+      whoami.style.display = 'none';
+    }
+  }
+
+  saveNameBtn.addEventListener('click', () => {
+    const val = nameInput.value.trim();
+    if(!val) return;
+    localStorage.setItem(STORE_KEY_NAME, val);
+    refreshWhoami();
+  });
+  nameInput.addEventListener('keydown', e => { if(e.key === 'Enter') saveNameBtn.click(); });
+  changeNameBtn.addEventListener('click', () => {
+    localStorage.removeItem(STORE_KEY_NAME);
+    refreshWhoami();
+  });
+
+  function renderExercises(){
+    const exercises = getExercises();
+    exerciseList.querySelectorAll('.exercise-card').forEach(el => el.remove());
+    exerciseEmpty.style.display = exercises.length ? 'none' : 'block';
+
+    exercises.forEach((ex, idx) => {
+      const card = document.createElement('div');
+      card.className = 'exercise-card';
+      const target = (ex.sets || ex.reps) ? `Target: ${ex.sets || '—'} sets × ${ex.reps || '—'} reps` : 'No target set';
+      card.innerHTML = `
+        <div class="exercise-top" data-idx="${idx}">
+          <div><h4>${escapeHtml(ex.name)}</h4><div class="target">${target}</div></div>
+          <button class="remove" data-remove="${idx}">Remove</button>
+        </div>
+        <div class="log-form" data-form="${idx}">
+          <div class="log-field"><label>Sets</label><input type="text" data-field="sets"></div>
+          <div class="log-field"><label>Reps</label><input type="text" data-field="reps"></div>
+          <div class="log-field"><label>Weight (kg)</label><input type="text" data-field="weight"></div>
+          <div class="log-field notes"><label>Notes</label><input type="text" data-field="notes" placeholder="Optional"></div>
+          <button data-save="${idx}">Save entry</button>
+        </div>
+      `;
+      exerciseList.appendChild(card);
+    });
+
+    exerciseList.querySelectorAll('.exercise-top').forEach(top => {
+      top.addEventListener('click', e => {
+        if(e.target.closest('.remove')) return;
+        const idx = top.getAttribute('data-idx');
+        const form = exerciseList.querySelector(`.log-form[data-form="${idx}"]`);
+        form.classList.toggle('open');
+      });
+    });
+    exerciseList.querySelectorAll('[data-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-remove'), 10);
+        const exercises = getExercises();
+        exercises.splice(idx, 1);
+        setExercises(exercises);
+        renderExercises();
+      });
+    });
+    exerciseList.querySelectorAll('[data-save]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-save'), 10);
+        const exercises = getExercises();
+        const ex = exercises[idx];
+        const form = exerciseList.querySelector(`.log-form[data-form="${idx}"]`);
+        const sets = form.querySelector('[data-field="sets"]').value.trim();
+        const reps = form.querySelector('[data-field="reps"]').value.trim();
+        const weight = form.querySelector('[data-field="weight"]').value.trim();
+        const notes = form.querySelector('[data-field="notes"]').value.trim();
+        if(!sets && !reps && !weight){ return; }
+        logEntry(ex.name, sets, reps, weight, notes);
+        form.querySelectorAll('input').forEach(i => i.value = '');
+        form.classList.remove('open');
+      });
+    });
+  }
+
+  addExerciseBtn.addEventListener('click', () => {
+    const name = exNameInput.value.trim();
+    if(!name) return;
+    const exercises = getExercises();
+    exercises.push({ name, sets: exSetsInput.value.trim(), reps: exRepsInput.value.trim() });
+    setExercises(exercises);
+    exNameInput.value = ''; exSetsInput.value = ''; exRepsInput.value = '';
+    renderExercises();
+  });
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function logEntry(exercise, sets, reps, weight, notes){
+    const client = getClientName() || 'Unknown';
+    const entry = { date: new Date().toISOString(), client, exercise, sets, reps, weight, notes };
+    const history = getHistory();
+    history.unshift(entry);
+    setHistory(history);
+    renderHistory();
+    syncEntry(entry);
+  }
+
+  function syncEntry(entry){
+    if(!SHEET_URL) return;
+    fetch(SHEET_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(entry)
+    }).then(() => {
+      syncNote.textContent = 'Synced to your ongoing log.';
+      syncNote.classList.add('synced');
+    }).catch(() => {
+      syncNote.textContent = 'Saved on this device — sync will retry next time.';
+    });
+  }
+
+  function renderHistory(){
+    const history = getHistory();
+    historyEmpty.style.display = history.length ? 'none' : 'block';
+    historyWrap.querySelectorAll('table').forEach(t => t.remove());
+    if(!history.length) return;
+
+    const table = document.createElement('table');
+    table.className = 'history';
+    const rows = history.map(h => `
+      <tr>
+        <td>${new Date(h.date).toLocaleDateString()}</td>
+        <td>${escapeHtml(h.exercise)}</td>
+        <td>${escapeHtml(h.sets || '—')}</td>
+        <td>${escapeHtml(h.reps || '—')}</td>
+        <td>${escapeHtml(h.weight ? h.weight + ' kg' : '—')}</td>
+        <td>${escapeHtml(h.notes || '')}</td>
+      </tr>
+    `).join('');
+    table.innerHTML = `
+      <thead><tr><th>Date</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Weight</th><th>Notes</th></tr></thead>
+      <tbody>${rows}</tbody>
+    `;
+    historyWrap.appendChild(table);
+  }
+
+  exportBtn.addEventListener('click', () => {
+    const history = getHistory();
+    if(!history.length) return;
+    const header = ['Date','Client','Exercise','Sets','Reps','Weight (kg)','Notes'];
+    const lines = [header.join(',')].concat(history.map(h => [
+      new Date(h.date).toLocaleString(), h.client, h.exercise, h.sets, h.reps, h.weight, (h.notes||'').replace(/,/g,';')
+    ].map(v => `"${(v||'').toString().replace(/"/g,'""')}"`).join(',')));
+    const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'my-hep-program-history.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  if(SHEET_URL){ syncNote.textContent = 'Entries sync to your ongoing log.'; syncNote.classList.add('synced'); }
+
+  refreshWhoami();
+  renderExercises();
+  renderHistory();
+</script>
+
+</body>
+</html>
