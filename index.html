@@ -5,29 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HEP Hub — Log in</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
   body{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;}
   .login-card{background:var(--paper-raised);border-radius:20px;box-shadow:0 8px 24px -8px rgba(5,28,44,.14);width:100%;max-width:420px;border:1px solid var(--line);overflow:hidden;}
-  .brand-mark{display:flex;align-items:center;gap:14px;padding:32px 36px;background:var(--ink);}
-  .brand-mark img{height:38px;width:auto;}
-  .brand-mark .brand-sub{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B5;}
+  .brand-mark{display:flex;align-items:center;padding:28px 36px;background:var(--navy);}
+  .brand-mark img{width:150px;height:auto;display:block;}
   .login-fields{padding:30px 36px 36px;}
   .field-group{margin-bottom:18px;}
-  label{display:block;font-size:13.5px;font-weight:600;margin-bottom:7px;color:var(--ink);}
-  input[type=text],input[type=password]{width:100%;padding:13px 15px;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;transition:border-color .15s ease;}
-  input[type=text]:focus,input[type=password]:focus{outline:none;border-color:var(--navy);}
+  label{display:block;font-size:13.5px;font-weight:600;margin-bottom:7px;color:var(--navy);}
+  input[type=text],input[type=password]{width:100%;padding:13px 15px;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--navy);font-family:'Source Sans 3',sans-serif;transition:border-color .15s ease;}
+  input[type=text]:focus,input[type=password]:focus{outline:none;border-color:var(--blue);background:#fff;}
   .pw-row{position:relative;}
-  .pw-toggle{position:absolute;right:12px;top:39px;background:none;border:none;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;padding:6px 4px;font-family:'Inter',sans-serif;}
-  .login-btn{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15.5px;font-weight:600;cursor:pointer;margin-top:6px;font-family:'Inter',sans-serif;transition:background .15s ease;}
-  .login-btn:hover{background:#005E99;}
+  .pw-toggle{position:absolute;right:12px;top:39px;background:none;border:none;font-size:12.5px;font-weight:600;color:var(--blue);cursor:pointer;padding:6px 4px;font-family:'Source Sans 3',sans-serif;}
+  .login-btn{width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:15.5px;font-weight:600;cursor:pointer;margin-top:6px;font-family:'Source Sans 3',sans-serif;transition:background .15s ease;}
+  .login-btn:hover{background:var(--blue-hover);}
   .login-meta{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:13px;}
-  .login-meta a{color:var(--navy);font-weight:600;text-decoration:none;}
+  .login-meta a{color:var(--blue);font-weight:600;}
   .remember{display:flex;align-items:center;gap:7px;color:var(--stone);}
   .error-msg{background:#FBEAE5;color:#B3543F;border:1px solid #EFC9BC;border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:16px;display:none;}
   .error-msg.show{display:block;}
-  .demo-hint{margin-top:24px;padding:14px 16px;background:var(--slate-soft);border-radius:10px;font-size:13px;color:var(--ink);line-height:1.5;}
+  .demo-hint{margin-top:24px;padding:14px 16px;background:var(--blue-tint);border-radius:10px;font-size:13px;color:var(--navy);line-height:1.5;}
   .demo-hint strong{font-weight:700;}
 </style>
 </head>
@@ -35,8 +35,7 @@
 
 <div class="login-card">
   <div class="brand-mark">
-    <img src="logo.png" alt="Hobart Exercise Physiology">
-    <span class="brand-sub">Member Hub</span>
+    <img src="assets/hep-logo-dark.png" alt="Hobart Exercise Physiology">
   </div>
 
   <div class="login-fields">
