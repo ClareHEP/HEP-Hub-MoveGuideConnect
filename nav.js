@@ -18,12 +18,15 @@
   var STORE_KEY_NAME = "hephub_client_name";
   var DEFAULT_NAME = "John Smith";
 
+  var SITE_URL = "https://www.hobartexercisephysiology.com.au";
+
   var NAV_ITEMS = [
     { key: "home", label: "Home", href: "welcome.html", dot: "#4A9BD8" },
     { key: "move", label: "Move", href: "move.html", dot: "#FF9A53" },
     { key: "guide", label: "Guide", href: "guide.html", dot: "#4A9BD8" },
     { key: "connect", label: "Connect", href: "connect.html", dot: "#4A87AD" },
-    { key: "program", label: "My Program", href: "program.html", dot: "#E3E7EA", tabLabel: "Program" }
+    { key: "program", label: "My Program", href: "program.html", dot: "#E3E7EA", tabLabel: "Program" },
+    { key: "contact", label: "Contact Us", href: SITE_URL, dot: "#6B7684", external: true, tabLabel: "Contact" }
   ];
 
   function getNavMode() {
@@ -68,7 +71,9 @@
     NAV_ITEMS.forEach(function (item) {
       var isActive = item.key === page;
       var dot = el("div", { class: "dot", style: "background:" + (isActive ? "#fff" : item.dot) + ";" });
-      var link = el("a", { class: "rail-link" + (isActive ? " active" : ""), href: item.href }, [
+      var attrs = { class: "rail-link" + (isActive ? " active" : ""), href: item.href };
+      if (item.external) { attrs.target = "_blank"; attrs.rel = "noopener"; }
+      var link = el("a", attrs, [
         dot,
         document.createTextNode(item.label)
       ]);
@@ -125,7 +130,9 @@
     var bar = el("div", { class: "tabbar" });
     NAV_ITEMS.forEach(function (item) {
       var isActive = item.key === page;
-      var a = el("a", { class: "tab-item" + (isActive ? " active" : ""), href: item.href });
+      var attrs = { class: "tab-item" + (isActive ? " active" : ""), href: item.href };
+      if (item.external) { attrs.target = "_blank"; attrs.rel = "noopener"; }
+      var a = el("a", attrs);
       a.appendChild(el("div", { class: "dot" }));
       a.appendChild(el("span", { text: item.tabLabel || item.label }));
       bar.appendChild(a);
