@@ -50,14 +50,6 @@
   .guide-card .fmt{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);}
   .guide-card .get{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:var(--accent);font-weight:500;}
 
-  .companion-empty{
-    border:1px dashed var(--line);border-radius:14px;
-    padding:30px 26px;margin-bottom:38px;background:var(--paper);
-    display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  }
-  .companion-empty h4{font-size:16.5px;font-weight:600;margin:0 0 6px;}
-  .companion-empty p{margin:0;font-size:14px;line-height:1.6;color:var(--stone);max-width:520px;}
-
   /* ---- Hub-first version keeps the simpler list ---- */
   .resource-list{display:flex;flex-direction:column;gap:10px;padding:32px 40px 48px;background:#fff;}
   .resource-row{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid var(--line);border-radius:12px;}
@@ -137,12 +129,22 @@
       <h2>Workout Companions</h2>
       <p>Print-friendly guides to keep beside you during your home sessions — so you can follow the workout without watching the screen the whole way through.</p>
     </div>
-    <div class="companion-empty">
-      <div>
-        <h4>Two companions on the way</h4>
-        <p>The follow-along home workout companion guides will appear here as soon as they're added.</p>
-      </div>
-      <a class="btn btn-secondary" href="move.html">Browse Move sessions →</a>
+    <div class="guide-grid">
+
+      <a class="guide-card" href="assets/guides/hep-workout-companion-1.pdf" target="_blank" rel="noopener">
+        <span class="kicker">Home Workout.</span>
+        <h3>Workout 1</h3>
+        <p>A whole-body, 30-minute follow-along workout — six exercises in a circuit, with nothing but a chair and a couple of drink bottles.</p>
+        <span class="meta"><span class="fmt">PDF · 4 pages · 30 min</span><span class="get">DOWNLOAD →</span></span>
+      </a>
+
+      <a class="guide-card" href="assets/guides/hep-workout-companion-2.pdf" target="_blank" rel="noopener">
+        <span class="kicker">Home Workout.</span>
+        <h3>Workout 2</h3>
+        <p>A whole-body, 30-minute follow-along workout — eight exercises across two blocks, with the same chair and drink bottles.</p>
+        <span class="meta"><span class="fmt">PDF · 4 pages · 30 min</span><span class="get">DOWNLOAD →</span></span>
+      </a>
+
     </div>
   </section>
 
