@@ -74,13 +74,6 @@
   const errorMsg = document.getElementById('error-msg');
   const pwToggle = document.getElementById('pw-toggle');
 
-  // Lets a shared link like index.html?nav=top or ?nav=rail pin which
-  // nav model (see nav.js) the visitor lands in once they log in.
-  const navParam = new URLSearchParams(window.location.search).get('nav');
-  if(navParam === 'top' || navParam === 'rail'){
-    localStorage.setItem('hephub_nav_mode', navParam);
-  }
-
   const VALID_EMAIL = 'john.smith@email.com';
   const VALID_PW = 'JohnSmith1!';
 
@@ -95,6 +88,10 @@
     const pwVal = pwInput.value;
     if((emailVal === VALID_EMAIL.toLowerCase() && pwVal === VALID_PW) || (emailVal === '' && pwVal === '')){
       errorMsg.classList.remove('show');
+      // Names the hub greets you by, and the initials in the nav avatar.
+      if(!localStorage.getItem('hephub_client_name')){
+        localStorage.setItem('hephub_client_name', 'John Smith');
+      }
       window.location.href = 'welcome.html';
     } else {
       errorMsg.classList.add('show');
